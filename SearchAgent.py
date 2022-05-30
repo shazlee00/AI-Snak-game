@@ -14,14 +14,14 @@ search(intial_state):
 
 from Snake_functions import *
 
-def solve(strategy,intial_state,food):
+def solve(strategy,intial_state,food,blocks):
 	#print("this is intial state: ")
 	#print(intial_state.head.distance(food))
 	#print(food.position())
 	fringe=[]; visited=[]
 	initial_node=init_node(strategy,intial_state,food)
 	fringe.append(initial_node)
-	print('****this is the fringe size',fringe)
+	#print('****this is the fringe size',fringe)
 	while len(fringe)>0:
 		selected_node=select_node(strategy,fringe)
 		current_node=fringe.pop(selected_node)
@@ -31,15 +31,23 @@ def solve(strategy,intial_state,food):
 		visited.append(current_node['state'])
 		if isgoal(current_node['state'],food):
 			return get_solution(strategy,current_node,len(visited))
-		possible_actions=get_actions(current_node['state'])
-		print("possible_actions: ",possible_actions)
+		possible_actions=get_actions(current_node['state'],blocks)
+		#print("possible_actions: ",possible_actions)
 		for action in possible_actions:
-			print("current_node['state']: ",current_node['state'])
+			#print("current_node['state']: ",current_node['state'])
 			next_state=get_state(action,current_node['state'])
-			print("get_state: ",next_state)
+			#print("get_state: ",next_state)
 			next_node=add_node(strategy,current_node,action,next_state,food)
 			fringe.append(next_node)
-		print('****this is the fringe size',len(fringe))	
+		#
+		# 
+		# 
+		# 
+		# 
+		# 
+		# 
+		# 
+		# print('****this is the fringe size',len(fringe))	
 	return None
 
 def init_node(strategy,intial_state,food):

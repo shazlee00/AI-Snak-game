@@ -5,7 +5,7 @@ from food import Food
 from scoreboard import Scoreboard
 import time
 import SearchAgent
-
+from block import Block
 
 
 
@@ -18,15 +18,29 @@ screen.title("My Snake Game")
 screen.tracer(0)
 snake = Snake()
 food = Food()
-scoreboard = Scoreboard()
+blocks=[]
+postions = [
+                [200,200],
+                [-123,-134],
+                [150,-50],
+                [-100,200],
+                [-169,24],
+                [-123,145],
+                [-69,69]
+               
+ ]
+for i in postions:
+    blocks.append(Block(i))
 
+
+scoreboard = Scoreboard()
 game_is_on = True
 while game_is_on:
     screen.update()
     time.sleep(0.01)
     #snake.move()
     #Detect collision with food.
-    steps=SearchAgent.solve('Astar',snake.head.position(), food.position())
+    steps=SearchAgent.solve('Astar',snake.head.position(), food.position(),blocks)
     print("step are:",steps['solution'])
     if(steps):     
         for action in steps['solution']:
@@ -50,6 +64,9 @@ while game_is_on:
                 time.sleep(0.08)
         if snake.head.distance(food) <=20:
             food.refresh()
+            for block in blocks:
+                if block.distance(food) <= block.r:
+                    food.refresh()        
             #snake.extend()
             scoreboard.increase_score()        
       
