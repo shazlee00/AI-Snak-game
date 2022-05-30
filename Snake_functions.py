@@ -17,9 +17,9 @@ def ecdis(p1,p2):
 
 
 def get_actions(snake,blocks):
-    print("****snake head*****")
-    print(blocks[0].position())
-    print(blocks[0].r)
+    # print("****snake head*****")
+    # print(blocks[0].position())
+    # print(blocks[0].r)
     snake_state=list(snake)
     #print('snake_state',snake_state)
     actions=['up','down','left','right']
@@ -27,10 +27,13 @@ def get_actions(snake,blocks):
        state=get_state(action,snake_state)
        print('snake state',state)
        for block in blocks:
-           print(block.position(),block.r,state,ecdis(state,block.position()),action)
-           if ecdis(state,block.position()) <= 0.9*block.r:
-               actions.remove(action)
-               print('array state',actions)
+           #print(block.position(),block.r,state,ecdis(state,block.position()),action)
+           if ecdis(state,block.position()) <= block.r:
+                try:
+                    actions.remove(action)
+                    print('array state',actions)
+                except ValueError:
+                    continue    
     
    
     if snake[0] >= 280 and 'right' in actions :
